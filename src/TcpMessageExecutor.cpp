@@ -16,10 +16,16 @@ TcpMessageExecutor::TcpMessageExecutor()
 	m_cmds["GET /Humidity"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "Humidity.html");
 	m_cmds["GET /CO2"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "CO2.html");
 	m_cmds["GET /VOC"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "VOC.html");
+	m_cmds["GET /CO"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "CO.html");
 	m_cmds["GET /PM25"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "PM25.html");
 	m_cmds["GET /PM10"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "PM10.html");
+	m_cmds["GET /Pressure"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "Pressure.html");
+	m_cmds["GET /R"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "R.html");
+	m_cmds["GET /G"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "G.html");
+	m_cmds["GET /B"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "B.html");
 	m_cmds["GET /Lux"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "Lux.html");
 	m_cmds["GET /CCT"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "CCT.html");
+	m_cmds["GET /UV"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "UV.html");
 	
 	m_cmds["GET /Chart.min.js.download"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "Chart.min.js.download");
 	m_cmds["GET /utils.js.download"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "utils.js.download");
