@@ -21,8 +21,8 @@ TcpMessageExecutor::TcpMessageExecutor()
 	m_cmds["GET /Lux"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "Lux.html");
 	m_cmds["GET /CCT"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "CCT.html");
 	
-	m_cmds["GET /Line%20Chart%20Multiple%20Axes_files/Chart.min.js.download"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "Chart.min.js.download");
-	m_cmds["GET /Line%20Chart%20Multiple%20Axes_files/utils.js.download"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "utils.js.download");
+	m_cmds["GET /Chart.min.js.download"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "Chart.min.js.download");
+	m_cmds["GET /utils.js.download"] = std::bind(&TcpMessageExecutor::HandleGraphs, this, "utils.js.download");
 }
 
 void TcpMessageExecutor::SetCurrentSession(SharedSession session, size_t len)
