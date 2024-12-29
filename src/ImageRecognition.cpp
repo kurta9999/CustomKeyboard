@@ -7,6 +7,7 @@ HMONITOR primaryMonitor;
 bool FindImageOnScreen(const std::string& image_name, int& x, int& y)
 {
 #ifdef USE_BSEC
+#ifdef USE_OPENCV
     cv::Mat templateImage = cv::imread(image_name, cv::IMREAD_COLOR);
     if(templateImage.empty()) {
         return false;
@@ -70,6 +71,7 @@ bool FindImageOnScreen(const std::string& image_name, int& x, int& y)
         y = maxLoc.y;
         return true;
     }
+#endif
 #endif
     return false;
 }

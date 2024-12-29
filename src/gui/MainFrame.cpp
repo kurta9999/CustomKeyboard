@@ -69,7 +69,7 @@ SOFTWARE." + "\n\nUsed 3rd party libraries:\n"
 "boost: " + BOOST_LIB_VERSION + "\n" +
 "lodepng: " + LODEPNG_VERSION_STRING + "\n" +
 "HIDAPI: " + HID_API_VERSION_STR + "\n" +
-"opencv: " + CV_VERSION + "\n" +
+//"opencv: " + CV_VERSION + "\n" +
 "Build info:\n" +
 "Compiler: " + BOOST_COMPILER + "\n"
 "Built on: " + __TIMESTAMP__, "OK");
