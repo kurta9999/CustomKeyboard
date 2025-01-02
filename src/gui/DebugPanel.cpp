@@ -139,7 +139,7 @@ void DebugPanel::HandleUpdate()
 				if(GetAsyncKeyState(VK_SCROLL))
 				{
 					LOG(LogLevel::Normal, str.ToStdString().c_str());
-					MacroRecorder::Get()->MarkMousePosition((LPPOINT*)&p);
+					//MacroRecorder::Get()->MarkMousePosition((LPPOINT*)&p);
 				}
 			}
 		}

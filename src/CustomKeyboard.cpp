@@ -13,19 +13,15 @@ bool MyApp::OnInit()
     cmd_executor = std::make_unique<CmdExecutor>();
     did_handler = std::make_unique<DidHandler>(did_xml_loader, did_xml_chace_loader, can_entry.get());
     modbus_handler = std::make_unique<ModbusEntryHandler>(modbus_entry_loader);
-    data_sender = std::make_unique<DataSender>(data_entry_loader);
     alarm_entry = std::make_unique<AlarmEntryHandler>(alarm_entry_loader);
 
     Settings::Get()->Init();
     SerialPort::Get()->Init();
     CanSerialPort::Get()->Init();
-    DataSerialPort::Get()->Init();
     Server::Get()->Init();
     Sensors::Get()->Init();
-    StructParser::Get()->Init();
     PrintScreenSaver::Get()->Init();
     DirectoryBackup::Get()->Init();
-    MacroRecorder::Get()->Init();
     SerialTcpBackend::Get()->Init();
     CorsairHid::Get()->Init();
     BsecHandler::Get()->Init();
@@ -35,7 +31,6 @@ bool MyApp::OnInit()
     cmd_executor->Init();
     did_handler->Init();
     modbus_handler->Init();
-    data_sender->Init();
     alarm_entry->Init();
 
     if(!wxTaskBarIcon::IsAvailable())
@@ -52,13 +47,11 @@ int MyApp::OnExit()
     is_init_finished = false;
     
     CanSerialPort::CSingleton::Destroy();
-    DataSerialPort::CSingleton::Destroy();
 
     did_handler.reset(nullptr);  /* First this has to be destructed, because it uses CanEntryHandler */
     can_entry.reset(nullptr);
     cmd_executor.reset(nullptr);
     modbus_handler.reset(nullptr);
-    data_sender.reset(nullptr);
 
     IdlePowerSaver::CSingleton::Destroy();  /* Restore CPU power to 100%, this has to be destructed before Logger */
     Settings::CSingleton::Destroy();
@@ -66,10 +59,8 @@ int MyApp::OnExit()
     Server::CSingleton::Destroy();
     Sensors::CSingleton::Destroy();
     DatabaseLogic::CSingleton::Destroy();
-    StructParser::CSingleton::Destroy();
     PrintScreenSaver::CSingleton::Destroy();
     DirectoryBackup::CSingleton::Destroy();
-    MacroRecorder::CSingleton::Destroy();
     DatabaseLogic::CSingleton::Destroy();
     SerialTcpBackend::CSingleton::Destroy();
     SerialPort::CSingleton::Destroy();

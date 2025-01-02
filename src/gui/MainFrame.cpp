@@ -9,10 +9,6 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
 EVT_MENU(ID_Help, MyFrame::OnHelp)
 EVT_MENU(ID_About, MyFrame::OnAbout)
 EVT_MENU(ID_Quit, MyFrame::OnQuit)
-EVT_MENU(wxID_OPEN, MyFrame::OnOpen)
-EVT_MENU(wxID_SAVE, MyFrame::OnSave)
-EVT_MENU(wxID_SAVEAS, MyFrame::OnSaveAs)
-EVT_MENU(ID_DestroyAll, MyFrame::OnDestroyAll)
 EVT_MENU(ID_CanLoadTxList, MyFrame::OnCanLoadTxList)
 EVT_MENU(ID_CanSaveTxList, MyFrame::OnCanSaveTxList)
 EVT_MENU(ID_CanLoadRxList, MyFrame::OnCanLoadRxList)
@@ -45,7 +41,7 @@ void MyFrame::OnAbout(wxCommandEvent& event)
 	wxMessageBox(wxString("CustomKeyboard") + platform + " v" + COMMIT_TAG + " (" + COMMIT_ID + ")" + "\n\n"
 "MIT License\n\
 \n\
-Copyright (c) 2021 - 2024 kurta999\n\
+Copyright (c) 2021 - 2025 Attila Kiss \"kurta999\"\n\
 \n\
 Permission is hereby granted, free of charge, to any person obtaining a copy\n\
 of this software and associated documentation files (the \"Software\"), to deal\n\
@@ -138,22 +134,10 @@ void MyFrame::OnSize(wxSizeEvent& event)
 			if(config_panel->backup_panel)
 				config_panel->backup_panel->SetSize(a);
 		}
-		if(editor_panel)
-		{
-			editor_panel->SetSize(a);
-			if(editor_panel->m_notebook)
-				editor_panel->m_notebook->SetSize(a);
-			if(editor_panel->gui_editor)
-				editor_panel->gui_editor->SetSize(a);
-			if(editor_panel->gui_cpp)
-				editor_panel->gui_cpp->SetSize(a);
-		}
 		if(escape_panel)
 			escape_panel->SetSize(a);
 		if(debug_panel)
 			debug_panel->SetSize(a);
-		if(parser_panel)
-			parser_panel->SetSize(a);
 		if(log_panel)
 			log_panel->SetSize(a);
 		if(file_panel)
@@ -177,17 +161,6 @@ void MyFrame::OnSize(wxSizeEvent& event)
 			if (modbus_master_panel->m_notebook)
 				modbus_master_panel->m_notebook->SetSize(a);
 		}
-		if(data_sender_panel)
-		{
-			data_sender_panel->SetSize(a);
-			if(data_sender_panel->m_notebook)
-				data_sender_panel->m_notebook->SetSize(a);
-			if(data_sender_panel->data_panel)
-				data_sender_panel->data_panel->SetSize(a);
-			if(data_sender_panel->button_panel)
-				data_sender_panel->button_panel->SetSize(a);
-			data_sender_panel->m_notebook->Layout();
-		}
 		if(alarm_panel)
 			alarm_panel->SetSize(a);
 		if(cmd_panel)
@@ -198,25 +171,6 @@ void MyFrame::OnSize(wxSizeEvent& event)
 	event.Skip(true);
 }
 
-void MyFrame::OnOpen(wxCommandEvent& event)
-{
-	GuiEditor::Get()->OnOpen();
-}
-
-void MyFrame::OnSave(wxCommandEvent& event)
-{
-	GuiEditor::Get()->OnSave();
-}
-
-void MyFrame::OnSaveAs(wxCommandEvent& event)
-{
-	GuiEditor::Get()->OnSaveAs();
-}
-
-void MyFrame::OnDestroyAll(wxCommandEvent& event)
-{
-	GuiEditor::Get()->OnDestroyAll();
-}
 
 void MyFrame::OnCanLoadTxList(wxCommandEvent& event)
 {
@@ -308,7 +262,6 @@ void MyFrame::OnSaveEverything(wxCommandEvent& event)
 void MyFrame::On10msTimer(wxTimerEvent& event)
 {
 	HandleAlwaysOnNumlock();
-	HandleDataSender();
 	if(can_panel)
 		can_panel->On10MsTimer();
 	if(modbus_master_panel)
@@ -337,7 +290,7 @@ void MyFrame::HandleDebugPanelUpdate()
 #else
 	bool foreground = true;
 #endif
-	if((sel == ctrl->FindPage(debug_panel) || MacroRecorder::Get()->IsRecordingMouse()) && foreground)
+	if((sel == ctrl->FindPage(debug_panel)) && foreground)
 	{
 		if(debug_panel)
 			debug_panel->HandleUpdate();
@@ -396,12 +349,6 @@ void MyFrame::HandleAlwaysOnNumlock()
 		SendInput(1, &input, sizeof(input));
 	}
 #endif
-}
-
-void MyFrame::HandleDataSender()
-{
-	std::unique_ptr<DataSender>& data_sender = wxGetApp().data_sender;
-	data_sender->On100msTimer();
 }
 
 void MyFrame::HandleCryptoPriceUpdate()
@@ -529,8 +476,6 @@ MyFrame::MyFrame(const wxString& title)
 		escape_panel = new EscaperPanel(this);
 	if(used_pages.debug)
 		debug_panel = new DebugPanel(this);
-	if(used_pages.struct_parser)
-		parser_panel = new ParserPanel(this);
 	if(used_pages.file_browser)
 		file_panel = new FilePanel(this);
 	if(used_pages.cmd_executor)
@@ -541,8 +486,6 @@ MyFrame::MyFrame(const wxString& title)
 		did_panel = new DidPanel(this);
 	if(used_pages.modbus_master)
 		modbus_master_panel = new ModbusMasterPanel(this);
-	if (used_pages.data_sender)
-		data_sender_panel = new DataSenderPanel(this);
 	if (used_pages.alarm_panel)
 		alarm_panel = new AlarmPanel(this);
 	if(used_pages.log)
@@ -559,22 +502,10 @@ MyFrame::MyFrame(const wxString& title)
 		config_panel = new ConfigurationPanel(this);
 		ctrl->AddPage(config_panel, "Config", false, wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_OTHER, FromDIP(wxSize(16, 16))));
 	}
-	if(used_pages.map_converter)
-	{
-		map_converter_panel = new MapConverterPanel(this);
-		ctrl->AddPage(map_converter_panel, "Map", false, wxArtProvider::GetBitmap(wxART_TICK_MARK, wxART_OTHER, FromDIP(wxSize(16, 16))));
-	}	
-	if(used_pages.wxeditor)
-	{
-		editor_panel = new EditorPanel(ctrl);
-		ctrl->AddPage(editor_panel, "wxEditor", false, wxArtProvider::GetBitmap(wxART_PASTE, wxART_OTHER, FromDIP(wxSize(16, 16))));
-	}
 	if(used_pages.escaper)
 		ctrl->AddPage(escape_panel, "C StrEscape", false, wxArtProvider::GetBitmap(wxART_LIST_VIEW, wxART_OTHER, FromDIP(wxSize(16, 16))));
 	if(used_pages.debug)
 		ctrl->AddPage(debug_panel, "Debug Page", false, wxArtProvider::GetBitmap(wxART_HELP, wxART_OTHER, FromDIP(wxSize(16, 16))));
-	if(used_pages.struct_parser)
-		ctrl->AddPage(parser_panel, "Sturct Parser", false, wxArtProvider::GetBitmap(wxART_EDIT, wxART_OTHER, FromDIP(wxSize(16, 16))));
 	if(used_pages.file_browser)
 		ctrl->AddPage(file_panel, "File Browser", false, wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_OTHER, FromDIP(wxSize(16, 16))));
 	if(used_pages.cmd_executor)
@@ -585,8 +516,6 @@ MyFrame::MyFrame(const wxString& title)
 		ctrl->AddPage(did_panel, "DID", false, wxArtProvider::GetBitmap(wxART_FIND, wxART_OTHER, FromDIP(wxSize(16, 16))));
 	if(used_pages.modbus_master)
 		ctrl->AddPage(modbus_master_panel, "ModbusMaster", false, wxArtProvider::GetBitmap(wxART_PRINT, wxART_OTHER, FromDIP(wxSize(16, 16))));
-	if (used_pages.data_sender)
-		ctrl->AddPage(data_sender_panel, "DataSender", false, wxArtProvider::GetBitmap(wxART_REPORT_VIEW, wxART_OTHER, FromDIP(wxSize(16, 16))));
 	if (used_pages.alarm_panel)
 		ctrl->AddPage(alarm_panel, "AlarmPanel", false, wxArtProvider::GetBitmap(wxART_TICK_MARK, wxART_OTHER, FromDIP(wxSize(16, 16))));
 	if(used_pages.log)
@@ -699,54 +628,6 @@ void MyFrame::HandleNotifications()
 #ifdef _WIN32
 							ShellExecuteA(NULL, NULL, p->generic_string().c_str(), NULL, NULL, SW_SHOWNORMAL);
 #endif
-						});
-					break;
-				}	
-				case LinkMark:
-				{
-					uint32_t files_marked = std::any_cast<decltype(files_marked)>(ret[1]);
-					ShowNotificaiton("Selected files have been marked", wxString::Format("%d files has been marked.\n\
-	Press KEY %s in destination directory for creating symlinks\nPress KEY %s in destination directory for creating hardlinks\n\n\
-	If you accidentaly marked the files, click here to unmark them", 
-						files_marked, SymlinkCreator::Get()->place_symlink_key, SymlinkCreator::Get()->place_hardlink_key), 
-						3, wxICON_INFORMATION, [this](wxCommandEvent& event)
-						{
-							SymlinkCreator::Get()->UnmarkFiles();
-						});
-					break;
-				}
-				case LinkMarkError:
-				{
-					ShowNotificaiton("Error with symlink marking", "Error happend while marking source for link creation", 
-						3, wxICON_ERROR, [this](wxCommandEvent& event)
-						{
-						});
-					break;
-				}
-				case SymlinkCreated:
-				case HardlinkCreated:
-				{
-					uint32_t files_marked = std::any_cast<decltype(files_marked)>(ret[1]);
-					ShowNotificaiton(wxString::Format("%s has been created", type == SymlinkCreated ? "Simlinks" : "Hardlinks"),
-						wxString::Format("%d %s has been created succesfully!\n", files_marked, type == SymlinkCreated ? "Simlinks" : "Hardlinks"), 
-						3, wxICON_INFORMATION, [this](wxCommandEvent& event)
-						{
-						});
-					break;
-				}
-				case MacroRecordingStarted:
-				{
-					ShowNotificaiton("Macro recording started", wxString::Format("\
-	Start typing & pressing key combinations\nFor getting mouse position, press SCROLL LOCK\nClick again on macro recording icon to stop the recording\n\
-	Note: Macro recording is in WIP phase, so problems can happen!"), 5, wxICON_INFORMATION, [this](wxCommandEvent& event)
-						{
-						});
-					break;
-				}
-				case MacroRecordingStopped:
-				{
-					ShowNotificaiton("Macro recording stopped", wxString::Format("5 macro has been successfully recorded"), 3, wxICON_INFORMATION, [this](wxCommandEvent& event)
-						{
 						});
 					break;
 				}

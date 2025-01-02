@@ -75,8 +75,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <VCToolsVersion>
-    </VCToolsVersion>
+    <VCToolsVersion>14.42.34433</VCToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -448,13 +447,10 @@
     <ClInclude Include="src\CustomMacro.hpp" />
     <ClInclude Include="src\DatabaseImpl.hpp" />
     <ClInclude Include="src\DatabaseLogic.hpp" />
-    <ClInclude Include="src\DataSender.hpp" />
-    <ClInclude Include="src\DataSerialPort.hpp" />
     <ClInclude Include="src\DidHandler.hpp" />
     <ClInclude Include="src\DirectoryBackup.hpp" />
     <ClInclude Include="src\ExceptionHandler.hpp" />
     <ClInclude Include="src\framework.hpp" />
-    <ClInclude Include="src\GuiEditor.hpp" />
     <ClInclude Include="src\gui\AlarmPanel.hpp" />
     <ClInclude Include="src\gui\CanPanel\BitEditorDialog.hpp" />
     <ClInclude Include="src\gui\CanPanel\CanLogPanel.hpp" />
@@ -466,19 +462,15 @@
     <ClInclude Include="src\gui\CmdExecutorPanel.hpp" />
     <ClInclude Include="src\gui\Configuration.hpp" />
     <ClInclude Include="src\gui\ConfigurationBackup.hpp" />
-    <ClInclude Include="src\gui\DataSenderPanel.hpp" />
     <ClInclude Include="src\gui\DebugPanel.hpp" />
     <ClInclude Include="src\gui\DidPanel.hpp" />
-    <ClInclude Include="src\gui\Editor.hpp" />
     <ClInclude Include="src\gui\EscaperPanel.hpp" />
     <ClInclude Include="src\gui\FilePanel.hpp" />
     <ClInclude Include="src\gui\gui_id.hpp" />
     <ClInclude Include="src\gui\LogPanel.hpp" />
     <ClInclude Include="src\gui\MainPanel.hpp" />
     <ClInclude Include="src\gui\MainFrame.hpp" />
-    <ClInclude Include="src\gui\MapConverterPanel.hpp" />
     <ClInclude Include="src\gui\ModbusMasterPanel.hpp" />
-    <ClInclude Include="src\gui\ParserPanel.hpp" />
     <ClInclude Include="src\gui\pch.hpp" />
     <ClInclude Include="src\gui\TrayIcon.hpp" />
     <ClInclude Include="src\IdlePowerSaver.hpp" />
@@ -499,10 +491,8 @@
     <ClInclude Include="src\interface\ISerialPort.hpp" />
     <ClInclude Include="src\interface\ITcpMessageExecutor.hpp" />
     <ClInclude Include="src\Logger.hpp" />
-    <ClInclude Include="src\MacroRecorder.hpp" />
     <ClInclude Include="src\ModbusHandler.hpp" />
     <ClInclude Include="src\ModbusMasterSerialPort.hpp" />
-    <ClInclude Include="src\MapConverter.hpp" />
     <ClInclude Include="src\PathSeparator.hpp" />
     <ClInclude Include="src\pch.hpp" />
     <ClInclude Include="src\PrintScreenSaver.hpp" />
@@ -515,8 +505,6 @@
     <ClInclude Include="src\Session.hpp" />
     <ClInclude Include="src\Settings.hpp" />
     <ClInclude Include="src\StringToCEscaper.hpp" />
-    <ClInclude Include="src\StructParser.hpp" />
-    <ClInclude Include="src\SymlinkCreator.hpp" />
     <ClInclude Include="src\targetver.hpp" />
     <ClInclude Include="src\TcpMessageExecutor.hpp" />
     <ClInclude Include="src\TerminalHotkey.hpp" />
@@ -629,12 +617,9 @@
     <ClCompile Include="src\CustomMacro.cpp" />
     <ClCompile Include="src\DatabaseImpl.cpp" />
     <ClCompile Include="src\DatabaseLogic.cpp" />
-    <ClCompile Include="src\DataSender.cpp" />
-    <ClCompile Include="src\DataSerialPort.cpp" />
     <ClCompile Include="src\DidHandler.cpp" />
     <ClCompile Include="src\DirectoryBackup.cpp" />
     <ClCompile Include="src\ExceptionHandler.cpp" />
-    <ClCompile Include="src\GuiEditor.cpp" />
     <ClCompile Include="src\gui\AlarmPanel.cpp" />
     <ClCompile Include="src\gui\CanPanel\BitEditorDialog.cpp" />
     <ClCompile Include="src\gui\CanPanel\CanLogPanel.cpp" />
@@ -645,26 +630,20 @@
     <ClCompile Include="src\gui\CmdExecutorPanel.cpp" />
     <ClCompile Include="src\gui\Configuration.cpp" />
     <ClCompile Include="src\gui\ConfigurationBackup.cpp" />
-    <ClCompile Include="src\gui\DataSenderPanel.cpp" />
     <ClCompile Include="src\gui\DebugPanel.cpp" />
     <ClCompile Include="src\gui\DidPanel.cpp" />
-    <ClCompile Include="src\gui\Editor.cpp" />
     <ClCompile Include="src\gui\EscaperPanel.cpp" />
     <ClCompile Include="src\gui\FilePanel.cpp" />
     <ClCompile Include="src\gui\LogPanel.cpp" />
     <ClCompile Include="src\gui\MainPanel.cpp" />
     <ClCompile Include="src\gui\MainFrame.cpp" />
-    <ClCompile Include="src\gui\MapConverterPanel.cpp" />
     <ClCompile Include="src\gui\ModbusMasterPanel.cpp" />
-    <ClCompile Include="src\gui\ParserPanel.cpp" />
     <ClCompile Include="src\gui\TrayIcon.cpp" />
     <ClCompile Include="src\IdlePowerSaver.cpp" />
     <ClCompile Include="src\ImageRecognition.cpp" />
     <ClCompile Include="src\Logger.cpp" />
-    <ClCompile Include="src\MacroRecorder.cpp" />
     <ClCompile Include="src\ModbusHandler.cpp" />
     <ClCompile Include="src\ModbusMasterSerialPort.cpp" />
-    <ClCompile Include="src\MapConverter.cpp" />
     <ClCompile Include="src\PathSeparator.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -685,8 +664,6 @@
     <ClCompile Include="src\Session.cpp" />
     <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\StringToCEscaper.cpp" />
-    <ClCompile Include="src\StructParser.cpp" />
-    <ClCompile Include="src\SymlinkCreator.cpp" />
     <ClCompile Include="src\TcpMessageExecutor.cpp" />
     <ClCompile Include="src\TerminalHotkey.cpp" />
     <ClCompile Include="src\Utils.cpp" />

@@ -2,16 +2,12 @@
 
 #include "MainPanel.hpp"
 #include "EscaperPanel.hpp"
-#include "ParserPanel.hpp"
 #include "LogPanel.hpp"
-#include "Editor.hpp"
 #include "Configuration.hpp"
 #include "FilePanel.hpp"
 #include "CanPanel/CanPanel.hpp"
 #include "ModbusMasterPanel.hpp"
-#include "DataSenderPanel.hpp"
 #include "CmdExecutorPanel.hpp"
-#include "MapConverterPanel.hpp"
 #include "DidPanel.hpp"
 #include "AlarmPanel.hpp"
 
@@ -39,12 +35,6 @@ enum PopupMsgIds : uint8_t
 	BackupFailed,
 	StringEscaped,
 	PathSeparatorsReplaced,
-	LinkMark,
-	LinkMarkError,
-	SymlinkCreated,
-	HardlinkCreated,
-	MacroRecordingStarted,
-	MacroRecordingStopped,
 	TxListLoaded,
 	TxListSaved,
 	RxListLoaded,
@@ -87,17 +77,13 @@ public:
 
 	MainPanel* main_panel = nullptr;
 	ConfigurationPanel* config_panel = nullptr;
-	EditorPanel* editor_panel = nullptr;
 	EscaperPanel* escape_panel = nullptr;
 	DebugPanel* debug_panel = nullptr;
-	ParserPanel* parser_panel = nullptr;
 	FilePanel* file_panel = nullptr;
 	CmdExecutorPanelBase* cmd_panel = nullptr;
 	CanPanel* can_panel = nullptr;
 	ModbusMasterPanel* modbus_master_panel = nullptr;
-	DataSenderPanel* data_sender_panel = nullptr;
 	AlarmPanel* alarm_panel = nullptr;
-	MapConverterPanel* map_converter_panel = nullptr;
 	DidPanel* did_panel = nullptr;
 	LogPanel* log_panel = nullptr;
 	wxAuiNotebook* ctrl = nullptr;
@@ -112,10 +98,6 @@ private:
 	void OnHelp(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
 	void OnQuit(wxCommandEvent& event);
-	void OnOpen(wxCommandEvent& event);
-	void OnSave(wxCommandEvent& event);
-	void OnSaveAs(wxCommandEvent& event);
-	void OnDestroyAll(wxCommandEvent& event);
 	void OnCanLoadTxList(wxCommandEvent& event);
 	void OnCanSaveTxList(wxCommandEvent& event);
 	void OnCanLoadRxList(wxCommandEvent& event);
@@ -145,9 +127,6 @@ private:
 
 	// !\brief Handles numlock to be always on
 	void HandleAlwaysOnNumlock();		
-	
-	// !\brief Handles data sender message queue
-	void HandleDataSender();	
 	
 	// !\brief Handles crypto price update
 	void HandleCryptoPriceUpdate();

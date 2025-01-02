@@ -57,9 +57,6 @@
     <ClInclude Include="src\gui\Configuration.hpp">
       <Filter>Header Files\gui</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\Editor.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\EscaperPanel.hpp">
       <Filter>Header Files\gui</Filter>
     </ClInclude>
@@ -73,9 +70,6 @@
       <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\MainPanel.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\ParserPanel.hpp">
       <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\TrayIcon.hpp">
@@ -97,9 +91,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\framework.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GuiEditor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Logger.hpp">
@@ -126,9 +117,6 @@
     <ClInclude Include="src\Settings.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\StructParser.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\targetver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -146,12 +134,6 @@
     </ClInclude>
     <ClInclude Include="src\gui\ConfigurationBackup.hpp">
       <Filter>Header Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SymlinkCreator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MacroRecorder.hpp">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
@@ -261,12 +243,6 @@
     <ClInclude Include="src\interface\ICanDevice.hpp">
       <Filter>Header Files\interface</Filter>
     </ClInclude>
-    <ClInclude Include="src\MapConverter.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\MapConverterPanel.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\ExceptionHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -339,15 +315,6 @@
     <ClInclude Include="src\interface\IDataSender.hpp">
       <Filter>Header Files\interface</Filter>
     </ClInclude>
-    <ClInclude Include="src\DataSender.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DataSerialPort.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\DataSenderPanel.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\Alarms.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -368,9 +335,6 @@
     <ClCompile Include="src\gui\Configuration.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\Editor.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\EscaperPanel.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
@@ -381,9 +345,6 @@
       <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\MainPanel.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\ParserPanel.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\TrayIcon.cpp">
@@ -402,9 +363,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\DirectoryBackup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GuiEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Logger.cpp">
@@ -428,20 +386,11 @@
     <ClCompile Include="src\Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\StructParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\ConfigurationBackup.cpp">
       <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SymlinkCreator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MacroRecorder.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="libs\sha256\sha256.c">
       <Filter>libs\sha256</Filter>
@@ -527,12 +476,6 @@
     <ClCompile Include="src\CanDeviceLawicel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MapConverter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\MapConverterPanel.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
     <ClCompile Include="src\ExceptionHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -573,15 +516,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ImageRecognition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\DataSenderPanel.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DataSender.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DataSerialPort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Alarms.cpp">

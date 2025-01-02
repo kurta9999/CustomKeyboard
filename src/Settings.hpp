@@ -13,17 +13,13 @@ public:
         {
             uint8_t main : 1;
             uint8_t config : 1;
-            uint8_t wxeditor : 1;
-            uint8_t map_converter : 1;
             uint8_t escaper : 1;
             uint8_t debug : 1;
-            uint8_t struct_parser : 1;
             uint8_t file_browser : 1;
             uint8_t cmd_executor : 1;
             uint8_t can : 1;
             uint8_t did : 1;
             uint8_t modbus_master : 1;
-            uint8_t data_sender : 1;
             uint8_t alarm_panel : 1;
             uint8_t log : 1;
         };

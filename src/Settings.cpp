@@ -109,13 +109,6 @@ void Settings::LoadFile()
         modbus_handler->ToggleAutoRecord(utils::stob(pt.get_child("ModbusMaster").find("AutoRecord")->second.data()));
         modbus_handler->SetMaxRecordedEntries(utils::stoi<size_t>(pt.get_child("ModbusMaster").find("MaxRecordedEntries")->second.data()));
         
-        std::unique_ptr<DataSender>& data_sender = wxGetApp().data_sender;
-        DataSerialPort::Get()->SetEnabled(utils::stob(pt.get_child("DataSender").find("Enable")->second.data()));
-        DataSerialPort::Get()->SetComPort(utils::stoi<uint16_t>(pt.get_child("DataSender").find("COM")->second.data()));
-        data_sender->ToggleAutoSend(utils::stob(pt.get_child("DataSender").find("AutoSend")->second.data()));
-        data_sender->ToggleAutoRecord(utils::stob(pt.get_child("DataSender").find("AutoRecord")->second.data()));
-        DataSerialPort::Get()->SetBaudrate(utils::stoi<uint32_t>(pt.get_child("DataSender").find("Baudrate")->second.data()));
-
         minimize_on_exit = utils::stob(pt.get_child("App").find("MinimizeOnExit")->second.data());
         minimize_on_startup = utils::stob(pt.get_child("App").find("MinimizeOnStartup")->second.data());
         Logger::Get()->SetLogLevelAsString(pt.get_child("App").find("DefaultLogLevel")->second.data());
@@ -149,11 +142,6 @@ void Settings::LoadFile()
             std::filesystem::create_directory(PrintScreenSaver::Get()->screenshot_path, ec);
         if(ec)
             LOG(LogLevel::Error, "Error with create_directory ({}): {}", PrintScreenSaver::Get()->screenshot_path.generic_string(), ec.message());
-
-        SymlinkCreator::Get()->is_enabled = utils::stob(pt.get_child("SymlinkCreator").find("Enable")->second.data());
-        SymlinkCreator::Get()->mark_key = std::move(pt.get_child("SymlinkCreator").find("MarkKey")->second.data());
-        SymlinkCreator::Get()->place_symlink_key = std::move(pt.get_child("SymlinkCreator").find("PlaceSymlinkKey")->second.data());
-        SymlinkCreator::Get()->place_hardlink_key = std::move(pt.get_child("SymlinkCreator").find("PlaceHardlinkKey")->second.data());
 
         if (pt.get_child_optional("AntiLock"))
         {
@@ -221,7 +209,6 @@ void Settings::SaveFile(bool write_default_macros) /* tried boost::ptree ini wri
         used_pages.pages = 0xFFFF;
 
     std::unique_ptr<CanEntryHandler>& can_handler = wxGetApp().can_entry;
-    std::unique_ptr<DataSender>& data_sender = wxGetApp().data_sender;
     std::unique_ptr<ModbusEntryHandler>& modbus_handler = wxGetApp().modbus_handler;
     std::ofstream out(SETTINGS_FILE_PATH, std::ofstream::binary);
     out << "# Possible macro keywords: \n";
@@ -335,13 +322,6 @@ void Settings::SaveFile(bool write_default_macros) /* tried boost::ptree ini wri
     out << "AutoRecord = " << modbus_handler->IsAutoRecord() << "\n";
     out << "MaxRecordedEntries = " << modbus_handler->GetMaxRecordedEntries() << "\n";
     out << "\n";
-    out << "[DataSender]\n";
-    out << "Enable = " << DataSerialPort::Get()->IsEnabled() << "\n";
-    out << "COM = " << DataSerialPort::Get()->GetComPort() << " # Com port for Modbus Master UART where data is received/sent from/to Modbus\n";
-    out << "AutoSend = " << data_sender->IsAutoSend() << "\n";
-    out << "AutoRecord = " << data_sender->IsAutoRecord() << "\n";
-    out << "Baudrate = " << DataSerialPort::Get()->GetBaudrate() << "\n";
-    out << "\n";
     out << "[App]\n";
     out << "MinimizeOnExit = " << minimize_on_exit << "\n";
     out << "MinimizeOnStartup = " << minimize_on_startup<< "\n";
@@ -371,12 +351,6 @@ void Settings::SaveFile(bool write_default_macros) /* tried boost::ptree ini wri
     out << "\n";
     out << "[PathSeparator]\n";
     out << "ReplacePathSeparatorKey = " << PathSeparator::Get()->replace_key << "\n";
-    out << "\n";
-    out << "[SymlinkCreator]\n";
-    out << "Enable = " << SymlinkCreator::Get()->is_enabled << "\n";
-    out << "MarkKey = " << SymlinkCreator::Get()->mark_key << "\n";
-    out << "PlaceSymlinkKey = " << SymlinkCreator::Get()->place_symlink_key << "\n";
-    out << "PlaceHardlinkKey = " << SymlinkCreator::Get()->place_hardlink_key << "\n";
     out << "\n";
     out << "[AntiLock]\n";
     out << "Enable = " << AntiLock::Get()->is_enabled << "\n";
@@ -461,16 +435,10 @@ UsedPages Settings::ParseUsedPagesFromString(const std::string& in)
         pages.main = 1;
     if(boost::icontains(in, "Config"))
         pages.config = 1;
-    if(boost::icontains(in, "wxEditor"))
-        pages.wxeditor = 1;
-    if(boost::icontains(in, "Map"))
-        pages.map_converter = 1;
     if(boost::icontains(in, "StringEscaper"))
         pages.escaper = 1;
     if(boost::icontains(in, "Debug"))
         pages.debug = 1;
-    if(boost::icontains(in, "StructParser"))
-        pages.struct_parser = 1;
     if(boost::icontains(in, "FileBrowser"))
         pages.file_browser = 1;
     if(boost::icontains(in, "CmdExecutor"))
@@ -481,8 +449,6 @@ UsedPages Settings::ParseUsedPagesFromString(const std::string& in)
         pages.did = 1;
     if(boost::icontains(in, "ModbusMaster"))
         pages.modbus_master = 1;
-    if(boost::icontains(in, "DataSender"))
-        pages.data_sender = 1;    
     if(boost::icontains(in, "AlarmPanel"))
         pages.alarm_panel = 1;
     if(boost::icontains(in, "Log"))
@@ -497,16 +463,10 @@ std::string Settings::ParseUsedPagesToString(UsedPages& in)
         pages += "Main, ";
     if(in.config)
         pages += "Config, ";
-    if(in.wxeditor)
-        pages += "wxEditor, ";
-    if(in.map_converter)
-        pages += "Map, ";
     if(in.escaper)
         pages += "StringEscaper, ";
     if(in.debug)
         pages += "Debug, ";
-    if(in.struct_parser)
-        pages += "StructParser, ";
     if(in.file_browser)
         pages += "FileBrowser, ";
     if(in.cmd_executor)
@@ -517,8 +477,6 @@ std::string Settings::ParseUsedPagesToString(UsedPages& in)
         pages += "Did, ";
     if(in.modbus_master)
         pages += "ModbusMaster, ";
-    if(in.data_sender)
-        pages += "DataSender, ";    
     if(in.alarm_panel)
         pages += "AlarmPanel, ";
     if(in.log)

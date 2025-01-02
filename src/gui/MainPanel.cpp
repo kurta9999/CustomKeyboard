@@ -336,20 +336,6 @@ void MainPanel::UpdateKeybindings()
 	{
 		MarkFunctionalKey(it->second, "TOGGLE");
 	}
-	it = key_map.find(SymlinkCreator::Get()->mark_key);
-	if(it != key_map.end())
-	{
-		MarkFunctionalKey(it->second, "MARK");
-	}
-	it = key_map.find(SymlinkCreator::Get()->place_symlink_key);
-	if(it != key_map.end())
-	{
-		MarkFunctionalKey(it->second, "SYMLINK");
-	}	it = key_map.find(SymlinkCreator::Get()->place_hardlink_key);
-	if(it != key_map.end())
-	{
-		MarkFunctionalKey(it->second, "HARDLINK");
-	}
 
 	if(CorsairHid::Get()->GetDeviceType() == CorsairDeviceType::NONE)
 	{

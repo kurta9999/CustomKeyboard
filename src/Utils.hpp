@@ -56,12 +56,6 @@ namespace utils
     int GetVirtualKeyFromString(const std::string& key);
     std::string GetKeyStringFromVirtualKey(int key_code);
 
-#ifdef _WIN32
-    // !\brief Get folder view 2
-    // !\return IFolderView2 pointer
-    IFolderView2* GetFolderView2();
-#endif
-
     // !\brief Retreives selected items from file explorer
     // !\return Vector of selected items
     std::vector<std::wstring> GetSelectedItemsFromFileExplorer();

@@ -630,10 +630,6 @@ ComTcpPanel::ComTcpPanel(wxWindow* parent)
 			PrintScreenSaver::Get()->timestamp_format = m_ScreenshotDateFmt->GetValue();
 			PrintScreenSaver::Get()->screenshot_path = m_ScreenshotPath->GetValue().ToStdString();
 			DirectoryBackup::Get()->backup_time_format = m_BackupDateFmt->GetValue().ToStdString();
-			SymlinkCreator::Get()->is_enabled = m_IsSymlink->IsChecked();
-			SymlinkCreator::Get()->mark_key = m_MarkSymlink->GetValue().ToStdString();
-			SymlinkCreator::Get()->place_symlink_key = m_CreateSymlink->GetValue().ToStdString();
-			SymlinkCreator::Get()->place_hardlink_key = m_CreateHardlink->GetValue().ToStdString();
 			AntiLock::Get()->is_enabled = m_IsAntiLock->GetValue();
 			AntiLock::Get()->is_screensaver = m_IsScreensSaverAfterLock->GetValue();
 			AntiLock::Get()->timeout = static_cast<uint32_t>(m_AntiLockTimeout->GetValue());
@@ -753,10 +749,6 @@ void ComTcpPanel::UpdatePanel()
 	m_ScreenshotDateFmt->SetValue(PrintScreenSaver::Get()->timestamp_format);
 	m_ScreenshotPath->SetValue(PrintScreenSaver::Get()->screenshot_path.generic_string());
 	m_BackupDateFmt->SetValue(DirectoryBackup::Get()->backup_time_format);
-	m_IsSymlink->SetValue(SymlinkCreator::Get()->is_enabled);
-	m_MarkSymlink->SetValue(SymlinkCreator::Get()->mark_key);
-	m_CreateSymlink->SetValue(SymlinkCreator::Get()->place_symlink_key);
-	m_CreateHardlink->SetValue(SymlinkCreator::Get()->place_hardlink_key);
 	m_IsAntiLock->SetValue(AntiLock::Get()->is_enabled);
 	m_IsScreensSaverAfterLock->SetValue(AntiLock::Get()->is_screensaver);
 	m_AntiLockTimeout->SetValue(AntiLock::Get()->timeout);
@@ -1500,20 +1492,6 @@ void KeybrdPanel::TreeDetails_MoveDownSelectedMacro()
 
 void KeybrdPanel::TreeDetails_StartRecording()
 {
-	if(MacroRecorder::Get()->IsRecordingMouse() || MacroRecorder::Get()->IsRecordingKeyboard())
-	{
-		MacroRecorder::Get()->StopRecording();
-		btn_record->SetBitmap(wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_OTHER, FromDIP(wxSize(24, 24))));
-		btn_record->SetToolTip("Record macro (keypresses and/or mouse events)");
-		Bind(wxEVT_CHAR_HOOK, &KeybrdPanel::OnKeyDown, this);
-
-		MyFrame* frame = ((MyFrame*)(wxGetApp().GetTopWindow()));
-		{
-			std::unique_lock lock(frame->mtx);
-			frame->pending_msgs.push_back({ static_cast<uint8_t>(PopupMsgIds::MacroRecordingStopped) });
-		}
-		return;
-	}
 	wxTreeListItems items;
 	tree_details->GetSelections(items);
 	if(!items.empty())
@@ -1561,16 +1539,10 @@ void KeybrdPanel::TreeDetails_StartRecording()
 						kbd = true;
 						break;
 				}
-				MacroRecorder::Get()->StartRecording(kbd, mouse);
+				//MacroRecorder::Get()->StartRecording(kbd, mouse);
 				btn_record->SetBitmap(wxArtProvider::GetBitmap(wxART_REMOVABLE, wxART_OTHER, FromDIP(wxSize(24, 24))));
 				btn_record->SetToolTip("Stop macro recording");
 				Unbind(wxEVT_CHAR_HOOK, &KeybrdPanel::OnKeyDown, this);
-
-				MyFrame* frame = ((MyFrame*)(wxGetApp().GetTopWindow()));
-				{
-					std::unique_lock lock(frame->mtx);
-					frame->pending_msgs.push_back({ static_cast<uint8_t>(PopupMsgIds::MacroRecordingStarted) });
-				}
 			}
 		}
 	}

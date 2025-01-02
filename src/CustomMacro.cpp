@@ -548,12 +548,6 @@ void CustomMacro::ParseMacroKeys(size_t id, const std::string& key_code, std::st
         LOG(LogLevel::Warning, "Key \"{}\" is already assigned to PathSeparator!");
         return;
     }
-    if(SymlinkCreator::Get()->mark_key == key_code || SymlinkCreator::Get()->place_symlink_key == key_code ||
-        SymlinkCreator::Get()->place_hardlink_key == key_code)
-    {
-        LOG(LogLevel::Warning, "Key \"{}\" is already assigned to SymlinkCreator!");
-        return;
-    }
     if(bring_to_foreground_key == key_code)
     {
         LOG(LogLevel::Warning, "Key \"{}\" is already assigned to BringToForeground!");
@@ -867,8 +861,6 @@ void CustomMacro::ExecuteKeypresses(bool directly_execute_alarm)
         PathSeparator::Get()->ReplaceClipboard(PathSeparator::ReplaceType::PATH_SEPARATOR);
         return;
     }
-    if(SymlinkCreator::Get()->HandleKeypress(pressed_keys))
-        return;
 
     if(bring_to_foreground_key == pressed_keys)
     {
