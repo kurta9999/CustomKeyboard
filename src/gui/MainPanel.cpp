@@ -139,13 +139,22 @@ MainPanel::MainPanel(wxFrame* parent)
 			CryptoPrice::Get()->UpdatePrices(true);
 		});
 
-	m_WorkingDays = new wxStaticText(this, wxID_ANY, "Working Days: ", wxDefaultPosition, wxSize(-1, -1), 0);
-	m_WorkingDays->Wrap(-1);
-	m_WorkingDays->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
-	m_WorkingDays->SetForegroundColour(wxColor(217, 28, 201));
-	m_WorkingDays->SetToolTip("Working days in the month");
+	m_WorkingDaysSk = new wxStaticText(this, wxID_ANY, "Working Days: ", wxDefaultPosition, wxSize(-1, -1), 0);
+	m_WorkingDaysSk->Wrap(-1);
+	m_WorkingDaysSk->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
+	m_WorkingDaysSk->SetForegroundColour(wxColor(217, 28, 201));
+	bSizer1->Add(m_WorkingDaysSk, 0, wxALL, 5);
+	m_WorkingDaysHu = new wxStaticText(this, wxID_ANY, "Working Days: ", wxDefaultPosition, wxSize(-1, -1), 0);
+	m_WorkingDaysHu->Wrap(-1);
+	m_WorkingDaysHu->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
+	m_WorkingDaysHu->SetForegroundColour(wxColor(217, 28, 201));
+	bSizer1->Add(m_WorkingDaysHu, 0, wxALL, 5);
+	m_WorkingDaysAu = new wxStaticText(this, wxID_ANY, "Working Days: ", wxDefaultPosition, wxSize(-1, -1), 0);
+	m_WorkingDaysAu->Wrap(-1);
+	m_WorkingDaysAu->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
+	m_WorkingDaysAu->SetForegroundColour(wxColor(217, 28, 201));
+	bSizer1->Add(m_WorkingDaysAu, 0, wxALL, 5);
 	UpdateWorkingDays();
-	bSizer1->Add(m_WorkingDays, 0, wxALL, 5);
 
 	m_WeekNumber = new wxStaticText(this, wxID_ANY, FormatCurrentWeekNumber(), wxDefaultPosition, wxSize(-1, -1), 0);
 	m_WeekNumber->SetToolTip("Week number in the year");
@@ -479,8 +488,17 @@ void MainPanel::UpdateCryptoPrices(float eth_buy, float eth_sell, float btc_buy,
 void MainPanel::UpdateWorkingDays()
 {
 	WorkingDays::Get()->Update();
-	m_WorkingDays->SetLabelText(wxString::Format("Working days: %d [%d] - (%d)", WorkingDays::Get()->m_WorkingDays, WorkingDays::Get()->m_WorkingDays * 8,
-		WorkingDays::Get()->m_Holidays));
+	m_WorkingDaysSk->SetLabelText(wxString::Format("Working days SK: %d [%d] - (%d)", WorkingDays::Get()->m_WorkingDaysSlovakia, WorkingDays::Get()->m_WorkingDaysSlovakia * 8,
+		WorkingDays::Get()->m_HolidaysSlovakia));
+	m_WorkingDaysSk->SetToolTip(wxString::Format("Holidays:\n%s", WorkingDays::Get()->m_HolidaysStrSlovakia));
+
+	m_WorkingDaysHu->SetLabelText(wxString::Format("Working days HU: %d [%d] - (%d)", WorkingDays::Get()->m_WorkingDaysHungary, WorkingDays::Get()->m_WorkingDaysHungary * 8,
+		WorkingDays::Get()->m_HolidaysHungary));
+	m_WorkingDaysHu->SetToolTip(wxString::Format("Holidays:\n%s", WorkingDays::Get()->m_HolidaysStrHungary));
+
+	m_WorkingDaysAu->SetLabelText(wxString::Format("Working days AU: %d [%d] - (%d)", WorkingDays::Get()->m_WorkingDaysAustria, WorkingDays::Get()->m_WorkingDaysAustria * 8,
+		WorkingDays::Get()->m_HolidaysAustria));
+	m_WorkingDaysAu->SetToolTip(wxString::Format("Holidays:\n%s", WorkingDays::Get()->m_HolidaysStrAustria));
 }
 
 wxString MainPanel::FormatCurrentWeekNumber()
