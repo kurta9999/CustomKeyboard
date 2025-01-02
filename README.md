@@ -15,10 +15,8 @@ If the project is useful for you and you're able, please consider small amount o
 ### 2. For General development:
 1. **Modbus Master** - Simple Modbus Master for polling Modbus Slave devices with GUI support. Coils, Input, Holding and Input registers supported over Serial and TCP/IP interface. Supported register sizes are (u)int16_t, (u)int32_t, (u)int64_t, float, double. Proper logging and error handling implemented.
 2. **Command excutor** - Bind specific commands (cmds) to GUI buttons with parameters support, which is then excuted on GUI button click - see more info below
-3. **Data Sender** - Send specific messages periodically or by trigger with specific input from DataSender.xml and wait for a response, the parse the response and display it in GUI. Can be useful for data visualization. 
-4. **StructParser** - Generate offsets of C structures and it's members
-5. **TerminalHotkey** - Hotkey for terminal, like in Linux. Can be launched from Windows Explorer with current path as starting directory and from Desktop
-6. **File explorer opener** - Open file explorer by sending a specific TCP packet to this application
+3. **TerminalHotkey** - Hotkey for terminal, like in Linux. Can be launched from Windows Explorer with current path as starting directory and from Desktop
+4. **File explorer opener** - Open file explorer by sending a specific TCP packet to this application
 
 ### 3. For Personal use:
 1. **CustomMacro** - Connect a second keyboard and binding macros to it's keys - full GUI support for macro editing with macro recorder
@@ -30,12 +28,7 @@ If the project is useful for you and you're able, please consider small amount o
 7. **ScreenshotSaver** - Saving screenshot to .png from clipboard
 8. **DirectoryBackup** - Backup folders to another place(s) from tray menu - with checksum and compression support
 9. **Filesystem browser** - List files and directories recursively by size starting from specific path - useful for finding bloat on storage
-10. **wxWidget's GUI editor** - A very basic GUI editor with move & resize support *(1)
-11. **MTA -> SA-MP MapConverter** - Convert maps from MTA-SA Race and MTA:SA DM to SA-MP with every item which is supported by SA-MP; objects, actors, vehicles with components, checkpoints and pickups.
-12. **LinkCreator** - Easy symlink & hardlink creator within Windows' file explorer
-13. **Alarm Handler** - Define alarms in Alarms.xml and set them up by predefined key from second keyboard. A popup dialog appears, specify alarm delay and the specified alarm action will be executed when that period expires. 
-
-*(10) This is an outdated part of this project, it doesn't support sizers. It's not recommended to create GUI without sizers, only use it if you know what you are doing.
+10. **Alarm Handler** - Define alarms in Alarms.xml and set them up by predefined key from second keyboard. A popup dialog appears, specify alarm delay and the specified alarm action will be executed when that period expires. 
 
 # In depth details of implemented features
 ### 1. For Automotive development:
@@ -50,9 +43,7 @@ If the project is useful for you and you're able, please consider small amount o
 
 2. **Command excutor** - Binding commands to GUI buttons possible in Cmds.xml or in the "CMD Executor" panel. That command will be executed on Windows with CreateProcess if you click on it's button, see the image below. This is very usful feature if you work often with command line, you don't have to copy paste every comand or type it's alias. 16 variable parameters can be added to one command, you can change that before execution by clicking with MIDDLE mouse to the command button instead of the LEFT. Command button customization (like bold font, color, font face name), duplication - everything can be done over GUI.
 
-3. **StructParser** - Paste the structure to input dialog and click on prarse. The application automatically calculates offsets for it's members. It's useful if you work with communication and had to calculate the offset of members in bytes manually. Supports embedded structures, struct alignment (fixed alignment supported, pragma pack implementation isn't finished yet), preprocessor definitions & unions. 
-
-4. **File explorer opener** - This function can be useful if you work with VirtualBox or WSL and using samba for accessing specific parts on guest OS filesystem. First you have to map the network drive in Windows, default drive character is Z: (can be changed in settings.ini - "SharedDriveLetter"), also don't forget to enable TCP_Backend in settings.ini. Here is an example command for opening the file explorer on Windows: "echo expw$(pwd) | netcat <ip address of host os> <TCP_Backend port from settings.ini>". For the best experience, I recommend creating an alias for this command.
+3. **File explorer opener** - This function can be useful if you work with VirtualBox or WSL and using samba for accessing specific parts on guest OS filesystem. First you have to map the network drive in Windows, default drive character is Z: (can be changed in settings.ini - "SharedDriveLetter"), also don't forget to enable TCP_Backend in settings.ini. Here is an example command for opening the file explorer on Windows: "echo expw$(pwd) | netcat <ip address of host os> <TCP_Backend port from settings.ini>". For the best experience, I recommend creating an alias for this command.
 
 ### 3. For Personal use:
 
@@ -88,13 +79,7 @@ G4 = BIND_NAME[reddit CPP button] CMD_FG[chrome.exe,C++] CMD_IMG[test_image.png,
 
 8. **DirectoryBackup** - Setup backups in configuration or in settings.ini manually and those will appear in tray menu of this application. Click on them, and backing up files will start. Supports ignore list & SHA-256 checksum for backed up files for more secure backups. 
 
-10. **wxWidget's GUI editor** - Oversimplified GUI editor which sometimes can be useful beside [wxFormBuilder](https://github.com/wxFormBuilder/wxFormBuilder "wxFormBuilder's Homepage"). GUI items are movable & resizable - directly without sizers. C++ code generation also implemented, current workspace can be saved & loaded to/from XML file.
-
-11. **MTA -> SA-MP MapConverter** - If you worry that some webpages will stole your maps during conversion, you can safely use this tool. Even if you don't trust me, you can check the source code and rebuild this project yourself.
-
-12. **LinkCreator** - Select desired files from File Explorer and click the mark key (key down on second keyboard by default) and files (directories too) will be marked for link creation. Go to target directory where you want to place the links for marked files, press symlink key (KEY UP) by default for symlink or hardlink key (KEY RIGHT) by default for hardlinks. That's all, symlink or hardlink is created from marked files in target directory.
-
-13. **CryptoPrice** - Fetching ETH & BTC buy/sell price from coinbase.com and printing it on main panel - disabled by default. Can be enabled by setting CryptoPriceUpdate period other than zero in settings.ini
+9. **CryptoPrice** - Fetching ETH & BTC buy/sell price from coinbase.com and printing it on main panel - disabled by default. Can be enabled by setting CryptoPriceUpdate period other than zero in settings.ini
 
 ## Libraries
 - [lodepng](https://lodev.org/lodepng/ "lodepng's Homepage")
@@ -237,14 +222,6 @@ Sleep 500
 
 ![Alt text](/github_screens/modbus_master.png?raw=true "Modbus Master")
 
-**Data Sender**
-
-![Alt text](/github_screens/data_sender.png?raw=true "Data Sender")
-
-**Structure parser**
-
-![Alt text](/github_screens/struct_parser.png?raw=true "C Structure parser (offset generation)")
-
 **Command executor**
 
 ![Alt text](/github_screens/cmd_executor.png?raw=true "Execute command by clicking it's button")
@@ -261,10 +238,6 @@ Sleep 500
 
 ![Alt text](/github_screens/config_main_page.png?raw=true "Configuration")
 
-**MTA -> SA-MP Map Converter**
-
-![Alt text](/github_screens/map_converter.png?raw=true "MTA -> SA-MP Map Converter")
-
 **Macro editor**
 
 ![Alt text](/github_screens/macro_editor_1.png?raw=true "Macro editor sample 1")
@@ -275,11 +248,6 @@ Sleep 500
 
 ![Alt text](/github_screens/backup_config.png?raw=true "Backup page")
 ![Alt text](/github_screens/backup_progress.png?raw=true "Backup in progress")
-
-**GUI Editor**
-
-![Alt text](/github_screens/gui_editor_1.png?raw=true "GUI Editor 1")
-![Alt text](/github_screens/gui_editor_2.png?raw=true "GUI Editor 2")
 
 **Log**
 
