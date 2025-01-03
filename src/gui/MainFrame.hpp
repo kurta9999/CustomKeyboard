@@ -3,7 +3,6 @@
 #include "MainPanel.hpp"
 #include "EscaperPanel.hpp"
 #include "LogPanel.hpp"
-#include "Configuration.hpp"
 #include "FilePanel.hpp"
 #include "CanPanel/CanPanel.hpp"
 #include "ModbusMasterPanel.hpp"
@@ -76,7 +75,6 @@ public:
 	void SetCurrentPage(uint8_t page_id);
 
 	MainPanel* main_panel = nullptr;
-	ConfigurationPanel* config_panel = nullptr;
 	EscaperPanel* escape_panel = nullptr;
 	DebugPanel* debug_panel = nullptr;
 	FilePanel* file_panel = nullptr;

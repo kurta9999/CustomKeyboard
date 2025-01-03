@@ -433,8 +433,6 @@ UsedPages Settings::ParseUsedPagesFromString(const std::string& in)
     pages.pages = 0;
     if(boost::icontains(in, "Main"))
         pages.main = 1;
-    if(boost::icontains(in, "Config"))
-        pages.config = 1;
     if(boost::icontains(in, "StringEscaper"))
         pages.escaper = 1;
     if(boost::icontains(in, "Debug"))
@@ -461,8 +459,6 @@ std::string Settings::ParseUsedPagesToString(UsedPages& in)
     std::string pages;
     if(in.main)
         pages += "Main, ";
-    if(in.config)
-        pages += "Config, ";
     if(in.escaper)
         pages += "StringEscaper, ";
     if(in.debug)

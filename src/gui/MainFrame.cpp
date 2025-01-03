@@ -122,18 +122,6 @@ void MyFrame::OnSize(wxSizeEvent& event)
 	{
 		if(main_panel)
 			main_panel->SetSize(a);
-		if(config_panel)
-		{
-			config_panel->SetSize(a);
-			if(config_panel->m_notebook)
-				config_panel->m_notebook->SetSize(a);
-			if(config_panel->comtcp_panel)
-				config_panel->comtcp_panel->SetSize(a);
-			if(config_panel->keybrd_panel)
-				config_panel->keybrd_panel->SetSize(a);
-			if(config_panel->backup_panel)
-				config_panel->backup_panel->SetSize(a);
-		}
 		if(escape_panel)
 			escape_panel->SetSize(a);
 		if(debug_panel)
@@ -497,11 +485,6 @@ MyFrame::MyFrame(const wxString& title)
 	ctrl->Freeze();
 	if(used_pages.main)
 		ctrl->AddPage(main_panel, "Main Page", false, wxArtProvider::GetBitmap(wxART_GO_HOME, wxART_OTHER, FromDIP(wxSize(16, 16))));
-	if(used_pages.config)
-	{
-		config_panel = new ConfigurationPanel(this);
-		ctrl->AddPage(config_panel, "Config", false, wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS, wxART_OTHER, FromDIP(wxSize(16, 16))));
-	}
 	if(used_pages.escaper)
 		ctrl->AddPage(escape_panel, "C StrEscape", false, wxArtProvider::GetBitmap(wxART_LIST_VIEW, wxART_OTHER, FromDIP(wxSize(16, 16))));
 	if(used_pages.debug)

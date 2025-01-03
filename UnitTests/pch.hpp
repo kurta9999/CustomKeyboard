@@ -48,8 +48,7 @@ enum LogLevel
 #define LOG(...)
 #define LOGW(...)
 
-#include "../src/StringToCEscaper.hpp"
-#include "../src/StructParser.hpp"
+#include "../src/StringToCEscaper.hpp
 #include "../src/DirectoryBackup.hpp"
 #include "../src/Utils.hpp"
 

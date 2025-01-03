@@ -12,7 +12,6 @@ public:
         struct
         {
             uint8_t main : 1;
-            uint8_t config : 1;
             uint8_t escaper : 1;
             uint8_t debug : 1;
             uint8_t file_browser : 1;

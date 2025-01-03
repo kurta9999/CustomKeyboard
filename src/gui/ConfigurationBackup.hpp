@@ -5,6 +5,18 @@
 #include <wx/stc/stc.h>
 #include <wx/treelist.h>
 
+template <class T>
+class wxIntClientData : public wxClientData
+{
+public:
+	wxIntClientData(T val) : value(val) {}
+	~wxIntClientData() {}
+
+	T GetValue() { return value; }
+private:
+	T value;
+};
+
 class BackupPanel : public wxPanel
 {
 public:

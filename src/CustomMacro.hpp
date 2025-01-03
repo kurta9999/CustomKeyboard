@@ -451,25 +451,6 @@ public:
     // !\brief Return HID scan code map
     const std::unordered_map<std::string, int>& GetHidScanCodeMap() { return scan_codes; }
 
-    template<typename T> void OnItemRecordingStarted(std::unique_ptr<T>&& val)
-    {
-        editing_macro->push_back(std::move(val));
-        editing_item = editing_macro->back().get();
-        MyFrame* frame = ((MyFrame*)(wxGetApp().GetTopWindow()));
-        if(frame)
-            frame->config_panel->keybrd_panel->UpdateDetailsTree();
-    }
-
-    template<typename T> void OnItemRecordingComplete(std::unique_ptr<T>&& val)
-    {
-        editing_macro->push_back(std::move(val));
-        editing_item = editing_macro->back().get();
-        MyFrame* frame = ((MyFrame*)(wxGetApp().GetTopWindow()));
-        if(frame)
-            frame->config_panel->keybrd_panel->UpdateDetailsTree();
-
-    }
-
     // !\brief Use per application macro?
     bool use_per_app_macro = true;
 

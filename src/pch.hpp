@@ -33,7 +33,6 @@ namespace std
 #include "gui/CanPanel/CanSenderPanel.hpp"
 #include "gui/CanPanel/CanUdsRawDialog.hpp"
 
-#include "gui/Configuration.hpp"
 #include "gui/ConfigurationBackup.hpp"
 #include "gui/DebugPanel.hpp"
 #include "gui/gui_id.hpp"

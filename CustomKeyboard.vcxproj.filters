@@ -54,9 +54,6 @@
     <ClInclude Include="libs\enumser\enumser.h">
       <Filter>libs\enumser</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\Configuration.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\EscaperPanel.hpp">
       <Filter>Header Files\gui</Filter>
     </ClInclude>
@@ -331,9 +328,6 @@
   <ItemGroup>
     <ClCompile Include="libs\enumser\enumser.cpp">
       <Filter>libs\enumser</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\Configuration.cpp">
-      <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\EscaperPanel.cpp">
       <Filter>Source Files\gui</Filter>
