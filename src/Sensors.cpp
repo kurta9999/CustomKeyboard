@@ -37,6 +37,7 @@ bool Sensors::ProcessIncommingData(const char* recv_data, size_t data_len, const
         boost::algorithm::erase_all(s, "BME680");
         boost::algorithm::erase_all(s, "VEML6070");
         boost::algorithm::erase_all(s, "TCS");
+        boost::algorithm::replace_all(s, "nan", "0.0");  /* In rare cases, this can happen */
 
         std::regex num_regex("[-+]?(\\d+([.]\\d*)?|[.]\\d+)([eE][-+]?\\d+)?");
         auto num_begin = std::sregex_iterator(s.begin(), s.end(), num_regex);
