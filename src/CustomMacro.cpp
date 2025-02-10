@@ -747,6 +747,12 @@ void CustomMacro::SimulateKeypress(const std::string& key, bool directly_execute
 
 void CustomMacro::ProcessReceivedData(const char* data, unsigned int len)
 {
+    if(!strncmp(data, "MEAS_DATA", 9))
+    {
+        Sensors::Get()->HandleAndForwardIncommingMeasurements(data, len, "SERIAL");
+        return;
+    }
+
     if(len != sizeof(KeyData_t))
     {
         LOG(LogLevel::Verbose, "Data received with invalid length! ({}), expected: {}", len, sizeof(KeyData_t));

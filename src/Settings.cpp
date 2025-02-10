@@ -82,6 +82,7 @@ void Settings::LoadFile()
         Sensors::Get()->SetGraphResolution(utils::stoi<uint16_t>(pt.get_child("Sensors").find("GraphResolution")->second.data()));
         Sensors::Get()->SetIntegrationTime(utils::stoi<uint16_t>(pt.get_child("Sensors").find("IntegrationTime")->second.data()));
         Server::Get()->SetForwardIpAddress(pt.get_child("Sensors").find("MeasurementForward")->second.data());
+        Server::Get()->SetForwardIpAddress2(pt.get_child("Sensors").find("MeasurementForward2")->second.data());
 
         std::unique_ptr<CanEntryHandler>& can_handler = wxGetApp().can_entry;
         CanSerialPort::Get()->SetEnabled(utils::stob(pt.get_child("CANSender").find("Enable")->second.data()));
@@ -287,6 +288,7 @@ void Settings::SaveFile(bool write_default_macros) /* tried boost::ptree ini wri
     out << "GraphResolution = " << Sensors::Get()->GetGraphResolution() << " # Number of different measurement points in generated graph\n";
     out << "IntegrationTime = " << Sensors::Get()->GetIntegrationTime() << " # Seconds\n";
     out << "MeasurementForward = " << Server::Get()->GetForwardIpAddress() << "\n";
+    out << "MeasurementForward2 = " << Server::Get()->GetForwardIpAddress2() << "\n";
     out << "\n";
     out << "[COM_Backend]\n";
     out << "Enable = " << SerialPort::Get()->IsEnabled() << "\n";

@@ -108,6 +108,8 @@ public:
     // !\brief Initialize sensors
     void Init();
 
+    void HandleAndForwardIncommingMeasurements(const char* recv_data, size_t data_len, const char* from_ip);
+
     // !\brief Process incomming data
     // !\param recv_data [in] - received data C string
     // !\param data_len [in] - received data len

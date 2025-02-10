@@ -26,6 +26,20 @@ void Sensors::Init()
     }
 }
 
+void Sensors::HandleAndForwardIncommingMeasurements(const char* recv_data, size_t data_len, const char* from_ip)
+{
+    bool ret = Sensors::Get()->ProcessIncommingData(recv_data, data_len, from_ip);
+    if (Server::Get()->forward_port != 0 && ret)
+    {
+        utils::SendTcpBlocking(Server::Get()->forward_ip_address, Server::Get()->forward_port, recv_data, data_len, 300, true);
+    }
+
+    if (Server::Get()->forward_port2 != 0 && ret)
+    {
+        utils::SendTcpBlocking(Server::Get()->forward_ip_address2, Server::Get()->forward_port2, recv_data, data_len, 300, true);
+    }
+}
+
 bool Sensors::ProcessIncommingData(const char* recv_data, size_t data_len, const char* from_ip)
 {
     bool ret = true;
