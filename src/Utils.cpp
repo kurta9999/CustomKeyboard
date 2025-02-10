@@ -583,7 +583,7 @@ namespace utils
 	}
 #endif
 
-	bool SendTcpBlocking(std::string& ip, uint16_t port, const char* data, size_t len, int timeout_ms)
+	bool SendTcpBlocking(const std::string& ip, uint16_t port, const char* data, size_t len, int timeout_ms, bool skip_log_msg)
 	{
 		boost::system::error_code ec;
 		boost::asio::io_service ios;
@@ -593,7 +593,7 @@ namespace utils
 			LOG(LogLevel::Error, "Failed to create endpoint from ip address: {}", ec.message());
 
 		socket.set_option(boost::asio::detail::socket_option::integer<SOL_SOCKET, SO_RCVTIMEO>{ 200 }, ec);
-		if(ec)
+		if(ec && !skip_log_msg)
 			LOG(LogLevel::Error, "set_option error: {}", ec.message());
 
 		bool is_connected = false;
@@ -610,14 +610,20 @@ namespace utils
 				socket.send(boost::asio::buffer(data, len), 0, ec);
 			if(ec)
 			{
-				LOG(LogLevel::Error, "Failed to forward serial over TCP: {}", ec.message());
+				if (!skip_log_msg)
+				{
+					LOG(LogLevel::Error, "Failed to forward serial over TCP: {}", ec.message());
+				}
 				is_connected = false;
 			}
 			socket.close(ec);
 		}
 		else
 		{
-			LOG(LogLevel::Error, "Failed to connect to the remote server!");
+			if (!skip_log_msg)
+			{
+				LOG(LogLevel::Error, "Failed to connect to the remote server!");
+			}
 		}
 		return is_connected;
 	}
